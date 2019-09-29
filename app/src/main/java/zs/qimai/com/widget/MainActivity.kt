@@ -1,5 +1,4 @@
 package zs.qimai.com.widget
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,13 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bt_default.setOnClickListener {
-            WlDialogFragment.Builder(supportFragmentManager)
+           /* WlDialogFragment.Builder(supportFragmentManager)
                 .create()
-                .show()
+                .show()*/
 
         }
         bt_customView.setOnClickListener {
-            WlDialogFragment.Builder(supportFragmentManager)
+         /*   WlDialogFragment.Builder(supportFragmentManager)
                 .setLayoutRes(R.layout.test_dialog)
                 .addViewClickId(R.id.tv_ok,R.id.tv_cancel)
                 .setItemViewClick(object :OnViewClickListener{
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
                 })
                 .create()
-                .show()
+                .show()*/
         }
 
     }
