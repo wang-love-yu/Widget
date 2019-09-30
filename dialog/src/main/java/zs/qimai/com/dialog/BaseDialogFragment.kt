@@ -35,8 +35,8 @@ abstract class BaseDialogFragment : DialogFragment() {
         val windowManager = dialog!!.window
         //设置宽高
         val layoutParams = windowManager?.attributes
-        /*layoutParams.width = getDialogWidth()
-        layoutParams.height = getDialogHeight()*/
+        layoutParams?.width = getDialogWidth()
+        layoutParams?.height = getDialogHeight()
         //设置gravity
         layoutParams?.gravity = getGravity()
         windowManager?.attributes = layoutParams
