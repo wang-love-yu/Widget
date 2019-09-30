@@ -2,14 +2,15 @@ package zs.qimai.com.dialog
 
 import android.content.DialogInterface
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 
 class DialogController {
     lateinit var fragmentManager: FragmentManager
     var layoutResId: Int = 0
-    var width: Int = 0
-    var height: Int = 0
+    var width: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+    var height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     var gravity: Int = 0
     var onViewClickListener: OnViewClickListener? = null
     var ids: IntArray? = null
@@ -21,8 +22,8 @@ class DialogController {
     class Params {
         lateinit var fragmentManager: FragmentManager
         var layoutResId: Int = R.layout.ls_dialog_tips_layout
-        var width: Int = 0
-        var height: Int = 0
+        var width: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+        var height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
         var gravity: Int = 0
         var onViewClickListener: OnViewClickListener? = null
         var ids: IntArray? = null
