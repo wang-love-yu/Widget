@@ -25,11 +25,6 @@ abstract class BaseDialogFragment : DialogFragment() {
         return containerView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        dialog!!.setCanceledOnTouchOutside(isCanCanceldOnTouch())
-    }
-
     override fun onStart() {
         super.onStart()
         val windowManager = dialog!!.window

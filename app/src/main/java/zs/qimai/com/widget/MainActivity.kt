@@ -12,9 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bt_default.setOnClickListener {
-           /* WlDialogFragment.Builder(supportFragmentManager)
+            WlDialogFragment.Builder(supportFragmentManager)
                 .create()
-                .show()*/
+                .show()
 
         }
         bt_customView.setOnClickListener {

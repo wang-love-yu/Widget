@@ -2,7 +2,9 @@ package zs.qimai.com.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
@@ -20,6 +22,7 @@ class WlDialogFragment : BaseDialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, mDialogTheme)
     }
+
     override fun onDismiss(dialog: DialogInterface) {
         this.dialog?.setOnShowListener(null)
         this.dialog?.setOnCancelListener(null)
@@ -28,16 +31,30 @@ class WlDialogFragment : BaseDialogFragment() {
         mDismissListener?.onDismiss(dialog)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        var view = super.onCreateView(inflater, container, savedInstanceState)
+        dialogController?.onViewInflateFinish?.onViewInflate(view)
+        return view
+    }
+
     override fun bindView(v: View) {
         //设置取消，确认按钮监听事件
-        getDialogChildView<View>(R.id.tv_cancel,v)
-                ?.setOnClickListener{
-                    dialogController.negative(it,this)
-                    dismiss()
-                }
+        getDialogChildView<View>(R.id.tv_cancel, v)
+            ?.setOnClickListener {
+                dialogController.negative(it, this)
+                dismiss()
+            }
 
-        getDialogChildView<View>(R.id.tv_ok,v)?.setOnClickListener {
-            dialogController.positive(it,this)
+        getDialogChildView<View>(R.id.tv_ok, v)?.setOnClickListener {
+            dialogController.positive(it, this)
             dismiss()
         }
         //绑定监听
@@ -51,7 +68,10 @@ class WlDialogFragment : BaseDialogFragment() {
                     mContainerListnerList?.add(WeakReference<View>(it))
                     it.setOnClickListener { v ->
                         if (dialogController.onViewClickListener != null) {
-                            dialogController.onViewClickListener!!.onViewClick(v!!, this@WlDialogFragment)
+                            dialogController.onViewClickListener!!.onViewClick(
+                                v!!,
+                                this@WlDialogFragment
+                            )
 
                         }
                     }
@@ -92,7 +112,8 @@ class WlDialogFragment : BaseDialogFragment() {
         private var params: DialogController.Params = DialogController.Params()
         //控件名称改变
         private var paramsMap: MutableMap<Int, String>? = null
-         var mDialogTheme = R.style.QmDialogTheme
+        var mDialogTheme = R.style.QmDialogTheme
+
         init {
             params.fragmentManager = this.fragmentManager
         }
@@ -104,6 +125,10 @@ class WlDialogFragment : BaseDialogFragment() {
 
         fun setOnDismissListener(listener: DialogInterface.OnDismissListener) {
             params.dismissListener = listener
+        }
+
+        fun setOnViewInflateListener(listener: OnViewInflateFinish) {
+
         }
 
         fun setWidth(width: Int): Builder {
@@ -139,11 +164,12 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun withPositive(positive: (View,DialogFragment) -> Unit):Builder{
+        fun withPositive(positive: (View, DialogFragment) -> Unit): Builder {
             params.positive = positive
             return this
         }
-        fun withNegative(negative: (View,DialogFragment) -> Unit):Builder{
+
+        fun withNegative(negative: (View, DialogFragment) -> Unit): Builder {
             params.negative = negative
             return this
         }
@@ -166,7 +192,7 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun setTitle(text:String):Builder{
+        fun setTitle(text: String): Builder {
             if (paramsMap == null) {
                 paramsMap = mutableMapOf()
             }
@@ -181,10 +207,10 @@ class WlDialogFragment : BaseDialogFragment() {
         }
     }
 
-    fun show(tag:String="default"): WlDialogFragment {
+    fun show(tag: String = "default"): WlDialogFragment {
         dialogController.fragmentManager.beginTransaction()
-                .add(this, tag)
-                .commitAllowingStateLoss()
+            .add(this, tag)
+            .commitAllowingStateLoss()
         //   show(fragmentManager)
         return this
     }
@@ -211,4 +237,9 @@ class WlDialogFragment : BaseDialogFragment() {
             dialog!!.dismiss()
         }
     }
+
+    interface OnViewInflateFinish {
+        fun onViewInflate(view: View?)
+    }
+
 }
