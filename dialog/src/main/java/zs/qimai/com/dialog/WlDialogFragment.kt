@@ -123,12 +123,14 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun setOnDismissListener(listener: DialogInterface.OnDismissListener) {
+        fun setOnDismissListener(listener: DialogInterface.OnDismissListener):Builder {
             params.dismissListener = listener
+            return this
         }
 
-        fun setOnViewInflateListener(listener: OnViewInflateFinish) {
-
+        fun setOnViewInflateListener(listener: OnViewInflateFinish):Builder {
+            params.onViewInflateFinish = listener
+            return this
         }
 
         fun setWidth(width: Int): Builder {
