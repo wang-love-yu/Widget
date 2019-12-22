@@ -42,6 +42,8 @@ class WlDialogFragment : BaseDialogFragment() {
     ): View? {
         var view = super.onCreateView(inflater, container, savedInstanceState)
         dialogController?.onViewInflateFinish?.onViewInflate(view)
+        dialog?.setCanceledOnTouchOutside(dialogController?.canceledOnTouchOutside)
+        dialog?.setCancelable(dialogController?.cancelable)
         return view
     }
 
@@ -123,12 +125,12 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun setOnDismissListener(listener: DialogInterface.OnDismissListener):Builder {
+        fun setOnDismissListener(listener: DialogInterface.OnDismissListener): Builder {
             params.dismissListener = listener
             return this
         }
 
-        fun setOnViewInflateListener(listener: OnViewInflateFinish):Builder {
+        fun setOnViewInflateListener(listener: OnViewInflateFinish): Builder {
             params.onViewInflateFinish = listener
             return this
         }

@@ -22,6 +22,8 @@ abstract class BaseDialogFragment : DialogFragment() {
         containerView = layoutInflater.inflate(getLayoutId(), container, false)
         // return super.onCreateView(inflater, container, savedInstanceState)
         bindView(containerView!!)
+        dialog?.setCancelable(true)
+        dialog?.setCanceledOnTouchOutside(true)
         return containerView
     }
 
