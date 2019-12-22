@@ -43,7 +43,7 @@ class WlDialogFragment : BaseDialogFragment() {
         var view = super.onCreateView(inflater, container, savedInstanceState)
         dialogController?.onViewInflateFinish?.onViewInflate(view)
         dialog?.setCanceledOnTouchOutside(dialogController?.canceledOnTouchOutside)
-        dialog?.setCancelable(dialogController?.cancelable)
+        isCancelable = dialogController?.cancelable
         return view
     }
 
