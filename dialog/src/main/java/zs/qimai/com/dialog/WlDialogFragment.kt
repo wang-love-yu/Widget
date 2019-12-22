@@ -210,12 +210,14 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun setCancelable(status: Boolean) {
+        fun setCancelable(status: Boolean):Builder {
             params.Cancelable = status
+        return this
         }
 
-        fun setCanceledOnTouchOutside(status: Boolean) {
+        fun setCanceledOnTouchOutside(status: Boolean):Builder {
             params.canceledOnTouchOutside = status
+            return this
         }
     }
 
