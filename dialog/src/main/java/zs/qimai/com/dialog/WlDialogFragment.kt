@@ -209,6 +209,14 @@ class WlDialogFragment : BaseDialogFragment() {
             params.dismissListener = dismissListener
             return this
         }
+
+        fun setCancelable(status: Boolean) {
+            params.Cancelable = status
+        }
+
+        fun setCanceledOnTouchOutside(status: Boolean) {
+            params.canceledOnTouchOutside = status
+        }
     }
 
     fun show(tag: String = "default"): WlDialogFragment {
@@ -241,6 +249,9 @@ class WlDialogFragment : BaseDialogFragment() {
             dialog!!.dismiss()
         }
     }
+    /*var canceledOnTouchOutside = true
+    var cancelable = true*/
+
 
     interface OnViewInflateFinish {
         fun onViewInflate(view: View?)
