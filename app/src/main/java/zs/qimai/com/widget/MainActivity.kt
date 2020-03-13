@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
                 .setDialogDismiss(DialogInterface.OnDismissListener {
                     Log.d(TAG, "onDismiss: ") })
                 .create(),"2")
+            dialogManager.startShowDialog()
         }
         bt_customView.setOnClickListener {
          /*   WlDialogFragment.Builder(supportFragmentManager)

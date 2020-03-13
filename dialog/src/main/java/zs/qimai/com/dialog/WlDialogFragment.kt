@@ -24,7 +24,6 @@ class WlDialogFragment : BaseDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        dialogController.mDismissListenerList
         dialogController.dismissListener?.onDismiss(dialog)
         this.dialog?.setOnShowListener(null)
         this.dialog?.setOnCancelListener(null)
