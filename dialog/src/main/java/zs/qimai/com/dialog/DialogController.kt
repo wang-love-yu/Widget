@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import java.util.ArrayList
 
 class DialogController {
     lateinit var fragmentManager: FragmentManager
@@ -22,6 +23,7 @@ class DialogController {
     var onViewInflateFinish: WlDialogFragment.OnViewInflateFinish? = null
     var canceledOnTouchOutside = true
     var cancelable = true
+    var mDismissListenerList:ArrayList<OnDialogDismissListener> = ArrayList()
 
     class Params {
         lateinit var fragmentManager: FragmentManager
@@ -33,6 +35,7 @@ class DialogController {
         var ids: IntArray? = null
         var paramsMap: MutableMap<Int, String> = mutableMapOf()
         var dismissListener: DialogInterface.OnDismissListener? = null
+        var mDismissListenerList:ArrayList<OnDialogDismissListener> = ArrayList()
         var positive: (View, DialogFragment) -> Unit = { a, b -> }
         var negative: (View, DialogFragment) -> Unit = { a, b -> }
         var dialogTheme: Int = R.style.QmDialogTheme
@@ -56,6 +59,7 @@ class DialogController {
             dialogController.onViewInflateFinish = this.onViewInflateFinish
             dialogController.cancelable = this.Cancelable
             dialogController.canceledOnTouchOutside = this.canceledOnTouchOutside
+            dialogController.mDismissListenerList = this.mDismissListenerList
         }
     }
 

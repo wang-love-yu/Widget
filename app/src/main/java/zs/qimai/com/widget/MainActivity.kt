@@ -1,21 +1,30 @@
 package zs.qimai.com.widget
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import zs.qimai.com.dialog.DialogManager
 import zs.qimai.com.dialog.WlDialogFragment
 
 class MainActivity : AppCompatActivity() {
 
+    val dialogManager = DialogManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bt_default.setOnClickListener {
-            WlDialogFragment.Builder(supportFragmentManager)
-                .create()
-                .show()
-
+                //.show()
+            dialogManager.pushDialogToQueue(WlDialogFragment.Builder(supportFragmentManager)
+                .setDialogDismiss(DialogInterface.OnDismissListener {
+                    Log.d(TAG, "onDismiss: ") })
+                .create(),"1")
+            dialogManager.pushDialogToQueue(WlDialogFragment.Builder(supportFragmentManager)
+                .setDialogDismiss(DialogInterface.OnDismissListener {
+                    Log.d(TAG, "onDismiss: ") })
+                .create(),"2")
         }
         bt_customView.setOnClickListener {
          /*   WlDialogFragment.Builder(supportFragmentManager)
@@ -39,6 +48,10 @@ class MainActivity : AppCompatActivity() {
                 .create()
                 .show()*/
         }
+
+    }
+    companion object{
+        private const val TAG = "MainActivity"
 
     }
 }

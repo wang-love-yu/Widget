@@ -13,8 +13,8 @@ import java.lang.ref.WeakReference
 
 class WlDialogFragment : BaseDialogFragment() {
     var dialogController: DialogController = DialogController()
-    private var mDismissListener: DialogInterface.OnDismissListener? = null
     private var mContainerListnerList: ArrayList<WeakReference<View>>? = null
+
     var mDialogTheme = R.style.QmDialogTheme
     override fun getLayoutId() = dialogController.layoutResId
 
@@ -24,11 +24,15 @@ class WlDialogFragment : BaseDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        dialogController.mDismissListenerList
+        dialogController.dismissListener?.onDismiss(dialog)
         this.dialog?.setOnShowListener(null)
         this.dialog?.setOnCancelListener(null)
         this.dialog?.setOnDismissListener(null)
+        dialogController.mDismissListenerList?.forEach {
+            it.onDismiss(dialog)
+        }
         super.onDismiss(dialog)
-        mDismissListener?.onDismiss(dialog)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,6 +129,7 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
+        @Deprecated("使用addDismissListener()")
         fun setOnDismissListener(listener: DialogInterface.OnDismissListener): Builder {
             params.dismissListener = listener
             return this
@@ -158,7 +163,6 @@ class WlDialogFragment : BaseDialogFragment() {
 
         fun create(): WlDialogFragment {
             val qmDialogFragment = WlDialogFragment()
-            qmDialogFragment.mDismissListener = params.dismissListener
             params.apply(qmDialogFragment.dialogController)
             return qmDialogFragment
         }
@@ -210,14 +214,18 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun setCancelable(status: Boolean):Builder {
+        fun setCancelable(status: Boolean): Builder {
             params.Cancelable = status
-        return this
+            return this
         }
 
-        fun setCanceledOnTouchOutside(status: Boolean):Builder {
+        fun setCanceledOnTouchOutside(status: Boolean): Builder {
             params.canceledOnTouchOutside = status
             return this
+        }
+
+        fun addDismissListener(dialogDismissListener: OnDialogDismissListener) {
+            params.mDismissListenerList.add(dialogDismissListener)
         }
     }
 
@@ -238,7 +246,6 @@ class WlDialogFragment : BaseDialogFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mDismissListener = null
         mContainerListnerList?.forEach {
             it?.get()?.setOnClickListener(null)
         }
