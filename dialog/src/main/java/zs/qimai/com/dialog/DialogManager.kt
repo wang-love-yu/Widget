@@ -30,15 +30,16 @@ class DialogManager {
             }, tag, priority)
             mDialogQueue.add(dialogParams)
         }
-        /*  if (canShow()) {
+         /* if (canShow()) {
               startShowDialog()
           }*/
     }
 
     fun startShowDialog() {
-        if (mDialogQueue.isNullOrEmpty()&&isShowDialoging) {
+        if (mDialogQueue.isNullOrEmpty()||isShowDialoging) {
             return
-        } else {
+        }
+        else {
             prioritySequence(mDialogQueue)
             var dialogParams = mDialogQueue.poll()
             dialogParams?.let {
