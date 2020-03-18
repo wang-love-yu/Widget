@@ -18,10 +18,14 @@ class MainActivity : AppCompatActivity() {
         bt_default.setOnClickListener {
                 //.show()
             dialogManager.pushDialogToQueue(WlDialogFragment.Builder(supportFragmentManager)
+                .setTitle("woshi1")
                 .setDialogDismiss(DialogInterface.OnDismissListener {
                     Log.d(TAG, "onDismiss: ") })
                 .create(),"1")
+            dialogManager.startShowDialog()
             dialogManager.pushDialogToQueue(WlDialogFragment.Builder(supportFragmentManager)
+                .setTitle("woshi2")
+
                 .setDialogDismiss(DialogInterface.OnDismissListener {
                     Log.d(TAG, "onDismiss: ") })
                 .create(),"2")

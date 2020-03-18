@@ -223,7 +223,7 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun addDismissListener(dialogDismissListener: OnDialogDismissListener) {
+        fun addDismissListener(dialogDismissListener: OnDialogDismissListener):Builder{
             params.mDismissListenerList.add(dialogDismissListener)
         }
     }
