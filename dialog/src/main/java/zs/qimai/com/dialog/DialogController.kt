@@ -21,9 +21,10 @@ class DialogController {
     var negative: (View, DialogFragment) -> Unit = { a, b -> }
     var dialogTheme: Int = R.style.QmDialogTheme
     var onViewInflateFinish: WlDialogFragment.OnViewInflateFinish? = null
+    var onActivityResultListener: WlDialogFragment.OnActivityResultListener? = null
     var canceledOnTouchOutside = true
     var cancelable = true
-    var mDismissListenerList:ArrayList<OnDialogDismissListener> = ArrayList()
+    var mDismissListenerList: ArrayList<OnDialogDismissListener> = ArrayList()
 
     class Params {
         lateinit var fragmentManager: FragmentManager
@@ -35,11 +36,12 @@ class DialogController {
         var ids: IntArray? = null
         var paramsMap: MutableMap<Int, String> = mutableMapOf()
         var dismissListener: DialogInterface.OnDismissListener? = null
-        var mDismissListenerList:ArrayList<OnDialogDismissListener> = ArrayList()
+        var mDismissListenerList: ArrayList<OnDialogDismissListener> = ArrayList()
         var positive: (View, DialogFragment) -> Unit = { a, b -> }
         var negative: (View, DialogFragment) -> Unit = { a, b -> }
         var dialogTheme: Int = R.style.QmDialogTheme
         var onViewInflateFinish: WlDialogFragment.OnViewInflateFinish? = null
+        var onActivityResultListener: WlDialogFragment.OnActivityResultListener? = null
         var canceledOnTouchOutside = true
         var Cancelable = true
         fun apply(dialogController: DialogController) {
@@ -57,6 +59,7 @@ class DialogController {
             dialogController.negative = this.negative
             dialogController.dialogTheme = this.dialogTheme
             dialogController.onViewInflateFinish = this.onViewInflateFinish
+            dialogController.onActivityResultListener = this.onActivityResultListener
             dialogController.cancelable = this.Cancelable
             dialogController.canceledOnTouchOutside = this.canceledOnTouchOutside
             dialogController.mDismissListenerList = this.mDismissListenerList

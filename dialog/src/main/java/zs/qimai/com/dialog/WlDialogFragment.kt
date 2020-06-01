@@ -1,6 +1,7 @@
 package zs.qimai.com.dialog
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -115,6 +116,7 @@ class WlDialogFragment : BaseDialogFragment() {
 
     class Builder(private var fragmentManager: FragmentManager) {
         private var params: DialogController.Params = DialogController.Params()
+
         //控件名称改变
         private var paramsMap: MutableMap<Int, String>? = null
         var mDialogTheme = R.style.QmDialogTheme
@@ -136,6 +138,11 @@ class WlDialogFragment : BaseDialogFragment() {
 
         fun setOnViewInflateListener(listener: OnViewInflateFinish): Builder {
             params.onViewInflateFinish = listener
+            return this
+        }
+
+        fun setOnActivityResultListener(listener: OnActivityResultListener): Builder {
+            params.onActivityResultListener = listener
             return this
         }
 
@@ -223,7 +230,7 @@ class WlDialogFragment : BaseDialogFragment() {
             return this
         }
 
-        fun addDismissListener(dialogDismissListener: OnDialogDismissListener):Builder{
+        fun addDismissListener(dialogDismissListener: OnDialogDismissListener): Builder {
             params.mDismissListenerList.add(dialogDismissListener)
             return this
         }
@@ -266,4 +273,11 @@ class WlDialogFragment : BaseDialogFragment() {
         fun onViewInflate(view: View?)
     }
 
+    interface OnActivityResultListener {
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }
