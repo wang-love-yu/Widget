@@ -279,5 +279,6 @@ class WlDialogFragment : BaseDialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        dialogController?.onActivityResultListener?.onActivityResult(requestCode, resultCode, data)
     }
 }
